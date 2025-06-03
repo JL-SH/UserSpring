@@ -19,9 +19,9 @@ public class UserServiceImpl implements IUserService {
     @Transactional
     public User createUser(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
-            throw new IllegalArgumentException("Ya existe un usuario con ese email");
+            throw new IllegalArgumentException("A user with this email already exists");
         }
-        user.setActive(true); // por defecto, lo activamos
+        user.setActive(true); // it's activated by default
         return userRepository.save(user);
     }
 
