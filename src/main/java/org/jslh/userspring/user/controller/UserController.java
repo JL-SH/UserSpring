@@ -2,6 +2,7 @@ package org.jslh.userspring.user.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.jslh.userspring.user.dto.UserDTO;
 import org.jslh.userspring.user.entity.User;
 import org.jslh.userspring.user.service.IUserService;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,13 @@ public class UserController {
     private final IUserService userService;
 
     @PostMapping
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody UserDTO dto) {
+        User user = User.builder()
+                .name(dto.getName())
+                .email(dto.getEmail())
+                .phoneNumber(dto.getPhoneNumber())
+                .build();
+
         User newUser = userService.createUser(user);
         return ResponseEntity.ok(newUser);
     }
